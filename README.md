@@ -97,6 +97,8 @@ src/
 
 ## Architecture Decisions
 
+## Used Angular Material UI
+
 ### Store / Effects separation
 Each feature has two service classes provided at component scope:
 
@@ -185,6 +187,6 @@ Claude (Anthropic) AI tool.
 
 **What worked well:** Generating TypeScript interfaces, RxJS pipe chains, unit test scaffolds, component templates, and SCSS design systems.
 
-**What required correction:** The initial API base URL was wrong (`/v1/customer/list` vs the real `/v1/list/customer`). Several architectural refactors were driven by human feedback — splitting state into store/effects files, moving from inline component styles to `.scss` files, fixing CSS nesting issues in Angular's native CSS parser. Search technique analysis and selection of best match.
+**What required correction:** The initial API base URL was wrong (`/v1/customer/list` vs the real `/v1/list/customer`). Several architectural refactors were driven by developer feedback — splitting state into store/effects files, moving from inline component styles to `.scss` files, fixing CSS nesting issues in Angular's native CSS parser. Search technique analysis and selection of best match. signals and subscription optimization.
 
 **Prompts used:**  RxJS stream patterns, store/effects architecture, SCSS refactoring, error handling, TypeScript const+type pattern, subscription memory leak fixes.

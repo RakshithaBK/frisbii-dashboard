@@ -12,25 +12,25 @@ import { ApiList } from '../../../core/models/api.model';
 @Injectable()
 export class CustomerDetailStore {
   // ── Customer ──────────────────────────────────────────────────────────────────
-  readonly customer        = signal<Customer | null>(null);
+  readonly customer = signal<Customer | null>(null);
   readonly loadingCustomer = signal(true);
-  readonly customerError   = signal<string | null>(null);
+  readonly customerError = signal<string | null>(null);
 
   // ── Subscriptions ─────────────────────────────────────────────────────────────
   readonly loadingSubscriptions = signal(true);
-  readonly subsError            = signal<string | null>(null);
-  readonly loadingMoreSubs      = signal(false);
+  readonly subsError = signal<string | null>(null);
+  readonly loadingMoreSubs = signal(false);
 
-  private readonly _subscriptions  = signal<Subscription[]>([]);
-  private readonly _subPageToken   = signal<string | undefined>(undefined);
-  private readonly _subOverrides   = signal<Record<string, Subscription>>({});
+  private readonly _subscriptions = signal<Subscription[]>([]);
+  private readonly _subPageToken = signal<string | undefined>(undefined);
+  private readonly _subOverrides = signal<Record<string, Subscription>>({});
 
   // ── Invoices ──────────────────────────────────────────────────────────────────
-  readonly loadingInvoices     = signal(true);
-  readonly invoicesError       = signal<string | null>(null);
+  readonly loadingInvoices = signal(true);
+  readonly invoicesError = signal<string | null>(null);
   readonly loadingMoreInvoices = signal(false);
 
-  private readonly _invoices        = signal<Invoice[]>([]);
+  private readonly _invoices = signal<Invoice[]>([]);
   private readonly _invoicePageToken = signal<string | undefined>(undefined);
 
   // ── Per-action loading map ────────────────────────────────────────────────────
@@ -45,10 +45,10 @@ export class CustomerDetailStore {
   readonly allInvoices = computed<Invoice[]>(() => this._invoices());
 
   readonly hasMoreSubscriptions = computed(() => !!this._subPageToken());
-  readonly hasMoreInvoices      = computed(() => !!this._invoicePageToken());
+  readonly hasMoreInvoices = computed(() => !!this._invoicePageToken());
 
   // Exposed for effects to read when dispatching load-more
-  readonly subPageToken     = computed(() => this._subPageToken());
+  readonly subPageToken = computed(() => this._subPageToken());
   readonly invoicePageToken = computed(() => this._invoicePageToken());
 
   // ── Customer updaters ─────────────────────────────────────────────────────────
