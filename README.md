@@ -187,6 +187,11 @@ Claude (Anthropic) AI tool.
 
 **What worked well:** Generating TypeScript interfaces, RxJS pipe chains, unit test scaffolds, component templates, and SCSS design systems.
 
-**What required correction:** The initial API base URL was wrong (`/v1/customer/list` vs the real `/v1/list/customer`). Several architectural refactors were driven by developer feedback — splitting state into store/effects files, moving from inline component styles to `.scss` files, fixing CSS nesting issues in Angular's native CSS parser. Search technique analysis and selection of best match. signals and subscription optimization.
-
 **Prompts used:**  RxJS stream patterns, store/effects architecture, SCSS refactoring, error handling, TypeScript const+type pattern, subscription memory leak fixes.
+
+**What the developer decided and drove:** 
+- Discovered the API base URL discrepancy (/v1/list/{resource} vs the spec's /v1/{resource}/list) through hands-on testing and corrected calls accordingly.
+- Designed the Store/Effects split architecture — separating signals-only stores from RxJS-only effects files, and choosing to scope both at component level rather than root to prevent state leaking between navigations.
+- Identified and fixed memory leak patterns, signals and subscription optimization.
+- Search technique analysis and selection of best match.
+

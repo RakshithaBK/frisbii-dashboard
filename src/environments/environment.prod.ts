@@ -1,4 +1,3 @@
-// ⚠️  DO NOT COMMIT — This file is listed in .gitignore
 export const environment = {
   production: true,
   apiBaseUrl: 'https://api.frisbii.com/v1',
