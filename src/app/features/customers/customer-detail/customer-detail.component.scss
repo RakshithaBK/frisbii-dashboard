@@ -1,0 +1,157 @@
+.page {
+  padding: var(--space-8) var(--space-10);
+  app-breadcrumb {
+    display: block;
+    margin-bottom: var(--space-6);
+  }
+}
+
+.error-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--accent-error-dim);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  color: var(--accent-error);
+}
+
+// ── Customer card ─────────────────────────────────────────────────
+.customer-card {
+  margin-bottom: var(--space-8);
+}
+
+.card-content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  padding: var(--space-6) !important;
+}
+
+.card-skeleton {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-5);
+  padding: var(--space-6) !important;
+}
+
+.card-skeleton__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.customer-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--accent-primary-dim), rgba(37, 99, 235, 0.15));
+  border: 1px solid var(--accent-primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.customer-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 16px;
+  margin-top: 12px;
+}
+
+.meta-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+}
+
+// ── Sections grid ─────────────────────────────────────────────────
+.sections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-base);
+  border: 1px solid var(--bg-border);
+  border-radius: var(--radius-full);
+  padding: 1px 8px;
+  margin-left: 8px;
+}
+
+.section-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--accent-error-dim);
+  color: var(--accent-error);
+  font-size: 12px;
+}
+
+.section-table {
+  width: 100%;
+}
+
+mat-card-title {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display) !important;
+  font-size: 15px !important;
+}
+
+.action-btn {
+  font-size: 12px;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+}
+
+// ── Skeleton sizes ─────────────────────────────────────────────────
+.skeleton {
+  &--avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-lg);
+  }
+  &--card-name {
+    width: 200px;
+    height: 20px;
+  }
+  &--card-meta {
+    width: 160px;
+    height: 14px;
+  }
+}
+
+// ── Spinning icon ─────────────────────────────────────────────────
+.spinning {
+  animation: spin 0.8s linear infinite;
+}

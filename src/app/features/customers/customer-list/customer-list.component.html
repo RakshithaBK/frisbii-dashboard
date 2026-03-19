@@ -1,0 +1,116 @@
+<div class="page page-enter">
+  <!-- Header -->
+  <div class="page__header">
+    <h1 class="page__title">
+      Customers @if (!store.loading()) {
+      <span class="page__count">
+        @if (store.isSearching()) { {{ store.visibleCustomers().length }} of {{ store.indexedCount() }} @if
+        (store.backgroundLoading()) { indexed so far } } @else { {{ store.indexedCount() }} @if
+        (store.backgroundLoading()) {
+        <span class="indexing-label">indexing…</span>
+        } }
+      </span>
+      }
+    </h1>
+
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>
+        @if (store.backgroundLoading()) { Search ({{ store.indexedCount() }} indexed…) } @else { Search by handle… }
+      </mat-label>
+      <input matInput [ngModel]="store.searchQuery()" (ngModelChange)="onSearchChange($event)" autocomplete="off" />
+      @if (store.isSearching()) {
+      <button mat-icon-button matSuffix (click)="onClearSearch()" matTooltip="Clear search">
+        <mat-icon>close</mat-icon>
+      </button>
+      } @else {
+      <mat-icon matSuffix>search</mat-icon>
+      }
+    </mat-form-field>
+  </div>
+
+  <!-- Initial skeleton progress bar -->
+  @if (store.loading()) {
+  <mat-progress-bar mode="indeterminate" />
+  }
+
+  <!-- Background loading — subtle buffer bar -->
+  @if (store.backgroundLoading() && !store.loading()) {
+  <mat-progress-bar mode="buffer" class="bg-progress" />
+  }
+
+  <!-- Error -->
+  @if (store.error()) {
+  <div class="error-banner">
+    <mat-icon>warning</mat-icon>
+    <span>{{ store.error() }}</span>
+    <button mat-stroked-button (click)="effects.retry()">Retry</button>
+  </div>
+  }
+
+  <!-- Table -->
+  <div class="table-wrap" [class.table-wrap--loading]="store.loading()">
+    <table mat-table [dataSource]="store.visibleCustomers()">
+      <ng-container matColumnDef="handle">
+        <th mat-header-cell *matHeaderCellDef>Handle</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="handle">{{ row.handle }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let row">{{ displayName(row) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let row" class="text-secondary">{{ row.email || '—' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef>Company</th>
+        <td mat-cell *matCellDef="let row" class="text-secondary">{{ row.company || '—' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef>Created</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="date">{{ row.created | fDate }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <mat-icon class="arrow-icon">chevron_right</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: columns"
+        class="clickable-row"
+        (click)="navigateToCustomer(row.handle)"
+        tabindex="0"
+        (keydown.enter)="navigateToCustomer(row.handle)"
+      ></tr>
+
+      <tr class="mat-mdc-no-data-row" *matNoDataRow>
+        <td [attr.colspan]="columns.length">
+          @if (!store.loading()) {
+          <app-empty-state
+            icon="◎"
+            title="No customers found"
+            [subtitle]="store.isSearching()
+                ? store.backgroundLoading()
+                  ? 'Still indexing — more results may appear shortly.'
+                  : 'No results match your search.'
+                : 'No customers yet.'"
+          />
+          }
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

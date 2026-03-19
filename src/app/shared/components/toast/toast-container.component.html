@@ -1,0 +1,11 @@
+<div class="toast-container" role="status" aria-live="polite">
+  @for (toast of notificationService.toasts(); track toast.id) {
+  <div class="toast toast--{{ toast.type }}" [attr.data-id]="toast.id">
+    <span class="toast__icon">
+      @switch (toast.type) { @case ('success') { ✓ } @case ('error') { ✕ } @case ('warning') { ⚠ } @default { ℹ } }
+    </span>
+    <span class="toast__message">{{ toast.message }}</span>
+    <button class="toast__close" (click)="notificationService.dismiss(toast.id)" aria-label="Dismiss">×</button>
+  </div>
+  }
+</div>

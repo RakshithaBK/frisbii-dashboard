@@ -1,0 +1,250 @@
+// ============================================================
+// FRISBII DASHBOARD — Global Styles
+// Design: Angular Material + custom light theme
+// ============================================================
+
+@use '@angular/material' as mat;
+
+// ── Material theme setup ──────────────────────────────────────────
+@include mat.core();
+
+$primary: mat.m2-define-palette(mat.$m2-blue-palette, 700);
+$accent: mat.m2-define-palette(mat.$m2-teal-palette, 600);
+$warn: mat.m2-define-palette(mat.$m2-red-palette, 600);
+
+$theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+      warn: $warn,
+    ),
+    typography: mat.m2-define-typography-config(
+        $font-family: 'DM Sans, sans-serif',
+      ),
+    density: -1,
+  )
+);
+
+@include mat.all-component-themes($theme);
+
+// ── Fonts ──────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+// ── Design tokens ──────────────────────────────────────────────────
+:root {
+  // Backgrounds
+  --bg-base: #f0f4f8;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f7f9fc;
+  --bg-hover: #edf1f7;
+  --bg-border: #dce3ed;
+
+  // Brand
+  --accent-primary: #0077cc;
+  --accent-primary-dim: rgba(0, 119, 204, 0.09);
+  --accent-primary-border: rgba(0, 119, 204, 0.28);
+  --accent-warning: #d97706;
+  --accent-warning-dim: rgba(217, 119, 6, 0.1);
+  --accent-error: #dc2626;
+  --accent-error-dim: rgba(220, 38, 38, 0.09);
+  --accent-success: #16a34a;
+  --accent-success-dim: rgba(22, 163, 74, 0.09);
+  --accent-info: #2563eb;
+  --accent-info-dim: rgba(37, 99, 235, 0.09);
+  --accent-purple: #7c3aed;
+  --accent-purple-dim: rgba(124, 58, 237, 0.09);
+
+  // Text
+  --text-primary: #0f1923;
+  --text-secondary: #4a5e72;
+  --text-muted: #8fa3b8;
+
+  // Typography
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  // Spacing
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-16: 64px;
+
+  // Radius
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  // Shadows
+  --shadow-sm: 0 1px 3px rgba(15, 25, 35, 0.08);
+  --shadow-md: 0 4px 16px rgba(15, 25, 35, 0.1);
+
+  // Transitions
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+
+  // Layout
+  --sidebar-width: 240px;
+  --content-max: 1280px;
+}
+
+// ── Reset ──────────────────────────────────────────────────────────
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  min-height: 100vh;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+// ── Material overrides ─────────────────────────────────────────────
+.mat-mdc-card {
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.mat-mdc-table {
+  background: var(--bg-surface) !important;
+  width: 100%;
+}
+
+.mat-mdc-row:hover {
+  background: var(--bg-elevated);
+}
+
+.mat-mdc-header-cell {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  color: var(--text-muted) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.mat-mdc-cell {
+  color: var(--text-primary);
+  font-size: 13px;
+}
+
+.mat-mdc-paginator {
+  background: var(--bg-surface) !important;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+// ── Shared utility classes ─────────────────────────────────────────
+.handle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-primary);
+  background: var(--accent-primary-dim);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--accent-primary-border);
+  white-space: nowrap;
+}
+
+.date {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.amount {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+// ── Skeleton shimmer ───────────────────────────────────────────────
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-elevated) 25%,
+    var(--bg-hover) 50%,
+    var(--bg-elevated) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+// ── Animations ─────────────────────────────────────────────────────
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.page-enter {
+  animation: fadeIn 300ms ease both;
+}
+
+// ── Snackbar type styles ───────────────────────────────────────────
+.snack--success .mdc-snackbar__surface {
+  background: #16a34a !important;
+}
+.snack--error .mdc-snackbar__surface {
+  background: #dc2626 !important;
+}
+.snack--warning .mdc-snackbar__surface {
+  background: #d97706 !important;
+}
+.snack--info .mdc-snackbar__surface {
+  background: #2563eb !important;
+}
+
+.mdc-snackbar__label,
+.mdc-snackbar__action .mdc-button__label {
+  color: #ffffff !important;
+}

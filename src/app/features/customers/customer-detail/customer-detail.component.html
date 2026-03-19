@@ -1,0 +1,215 @@
+<div class="page page-enter">
+  <app-breadcrumb [items]="breadcrumbs()" />
+
+  <!-- Customer error -->
+  @if (store.customerError()) {
+  <div class="error-banner">
+    <mat-icon>warning</mat-icon>
+    <span>{{ store.customerError() }}</span>
+    <button mat-stroked-button (click)="goBack()">← Back</button>
+  </div>
+  }
+
+  <!-- Customer card -->
+  <mat-card class="customer-card">
+    @if (store.loadingCustomer()) {
+    <mat-progress-bar mode="indeterminate" />
+    <mat-card-content class="card-skeleton">
+      <div class="skeleton skeleton--avatar"></div>
+      <div class="card-skeleton__lines">
+        <div class="skeleton skeleton--card-name"></div>
+        <div class="skeleton skeleton--card-meta"></div>
+      </div>
+    </mat-card-content>
+    } @else if (store.customer()) {
+    <mat-card-content class="card-content">
+      <div class="customer-avatar">
+        {{ (store.customer()!.first_name?.[0] ?? store.customer()!.handle[0]).toUpperCase() }}
+      </div>
+      <div class="customer-info">
+        <mat-card-title>{{ displayName(store.customer()!) }}</mat-card-title>
+        <div class="meta-grid">
+          <span class="meta-label">Handle</span>
+          <span class="handle">{{ store.customer()!.handle }}</span>
+          @if (store.customer()!.email) {
+          <span class="meta-label">Email</span>
+          <span class="text-secondary">{{ store.customer()!.email }}</span>
+          } @if (store.customer()!.company) {
+          <span class="meta-label">Company</span>
+          <span class="text-secondary">{{ store.customer()!.company }}</span>
+          } @if (store.customer()!.phone) {
+          <span class="meta-label">Phone</span>
+          <span class="text-secondary">{{ store.customer()!.phone }}</span>
+          }
+          <span class="meta-label">Created</span>
+          <span class="date">{{ store.customer()!.created | fDate:'long' }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+    }
+  </mat-card>
+
+  <!-- Sections grid -->
+  <div class="sections-grid">
+    <!-- Subscriptions -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>autorenew</mat-icon>
+          Subscriptions @if (store.allSubscriptions().length > 0) {
+          <span class="section-count">{{ store.allSubscriptions().length }}</span>
+          }
+        </mat-card-title>
+      </mat-card-header>
+
+      @if (store.subsError()) {
+      <div class="section-error"><mat-icon>error_outline</mat-icon> {{ store.subsError() }}</div>
+      } @if (store.loadingSubscriptions()) {
+      <mat-progress-bar mode="indeterminate" />
+      }
+
+      <mat-card-content>
+        <table mat-table [dataSource]="store.allSubscriptions()" class="section-table">
+          <ng-container matColumnDef="handle">
+            <th mat-header-cell *matHeaderCellDef>Handle</th>
+            <td mat-cell *matCellDef="let row"><span class="handle">{{ row.handle }}</span></td>
+          </ng-container>
+
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef>State</th>
+            <td mat-cell *matCellDef="let row"><app-state-badge [state]="row.state" /></td>
+          </ng-container>
+
+          <ng-container matColumnDef="plan">
+            <th mat-header-cell *matHeaderCellDef>Plan</th>
+            <td mat-cell *matCellDef="let row" class="text-secondary">{{ row.plan }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef>Created</th>
+            <td mat-cell *matCellDef="let row"><span class="date">{{ row.created | fDate }}</span></td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let row">
+              @if (row.state === SubscriptionState.active) {
+              <button
+                mat-stroked-button
+                color="warn"
+                class="action-btn"
+                [disabled]="store.isActionLoading(row.handle)"
+                (click)="effects.pauseSubscription(row)"
+                matTooltip="Pause subscription"
+              >
+                @if (store.isActionLoading(row.handle)) {
+                <mat-icon class="spinning">refresh</mat-icon>
+                } @else {
+                <mat-icon>pause</mat-icon>
+                } Pause
+              </button>
+              } @if (row.state === SubscriptionState.on_hold) {
+              <button
+                mat-stroked-button
+                color="primary"
+                class="action-btn"
+                [disabled]="store.isActionLoading(row.handle)"
+                (click)="effects.unpauseSubscription(row)"
+                matTooltip="Reactivate subscription"
+              >
+                @if (store.isActionLoading(row.handle)) {
+                <mat-icon class="spinning">refresh</mat-icon>
+                } @else {
+                <mat-icon>play_arrow</mat-icon>
+                } Unpause
+              </button>
+              }
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="subsColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: subsColumns"></tr>
+
+          <tr class="mat-mdc-no-data-row" *matNoDataRow>
+            <td [attr.colspan]="subsColumns.length">
+              @if (!store.loadingSubscriptions()) {
+              <app-empty-state icon="↻" title="No subscriptions" subtitle="No subscriptions yet." />
+              }
+            </td>
+          </tr>
+        </table>
+      </mat-card-content>
+
+      @if (store.hasMoreSubscriptions() && !store.loadingSubscriptions()) {
+      <mat-card-actions>
+        <button mat-button (click)="effects.loadMoreSubscriptions(handle())" [disabled]="store.loadingMoreSubs()">
+          Load more
+        </button>
+      </mat-card-actions>
+      }
+    </mat-card>
+
+    <!-- Invoices -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>receipt_long</mat-icon>
+          Invoices @if (store.allInvoices().length > 0) {
+          <span class="section-count">{{ store.allInvoices().length }}</span>
+          }
+        </mat-card-title>
+      </mat-card-header>
+
+      @if (store.invoicesError()) {
+      <div class="section-error"><mat-icon>error_outline</mat-icon> {{ store.invoicesError() }}</div>
+      } @if (store.loadingInvoices()) {
+      <mat-progress-bar mode="indeterminate" />
+      }
+
+      <mat-card-content>
+        <table mat-table [dataSource]="store.allInvoices()" class="section-table">
+          <ng-container matColumnDef="handle">
+            <th mat-header-cell *matHeaderCellDef>Handle / ID</th>
+            <td mat-cell *matCellDef="let row"><span class="handle">{{ row.handle ?? row.id }}</span></td>
+          </ng-container>
+
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef>State</th>
+            <td mat-cell *matCellDef="let row"><app-state-badge [state]="row.state" /></td>
+          </ng-container>
+
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="amount">{{ row.amount | fCurrency:row.currency }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef>Created</th>
+            <td mat-cell *matCellDef="let row"><span class="date">{{ row.created | fDate }}</span></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="invoiceColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: invoiceColumns"></tr>
+
+          <tr class="mat-mdc-no-data-row" *matNoDataRow>
+            <td [attr.colspan]="invoiceColumns.length">
+              @if (!store.loadingInvoices()) {
+              <app-empty-state icon="$" title="No invoices" subtitle="No invoices yet." />
+              }
+            </td>
+          </tr>
+        </table>
+      </mat-card-content>
+
+      @if (store.hasMoreInvoices() && !store.loadingInvoices()) {
+      <mat-card-actions>
+        <button mat-button (click)="effects.loadMoreInvoices(handle())" [disabled]="store.loadingMoreInvoices()">
+          Load more
+        </button>
+      </mat-card-actions>
+      }
+    </mat-card>
+  </div>
+</div>

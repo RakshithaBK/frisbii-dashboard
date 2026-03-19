@@ -1,0 +1,37 @@
+mat-chip-set {
+  --mdc-chip-container-height: 24px;
+}
+
+mat-chip {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase;
+  cursor: default;
+}
+
+.badge--success {
+  --mdc-chip-elevated-container-color: var(--accent-success-dim);
+  --mdc-chip-label-text-color: var(--accent-success);
+}
+.badge--error {
+  --mdc-chip-elevated-container-color: var(--accent-error-dim);
+  --mdc-chip-label-text-color: var(--accent-error);
+}
+.badge--warning {
+  --mdc-chip-elevated-container-color: var(--accent-warning-dim);
+  --mdc-chip-label-text-color: var(--accent-warning);
+}
+.badge--info {
+  --mdc-chip-elevated-container-color: var(--accent-info-dim);
+  --mdc-chip-label-text-color: var(--accent-info);
+}
+.badge--purple {
+  --mdc-chip-elevated-container-color: var(--accent-purple-dim);
+  --mdc-chip-label-text-color: var(--accent-purple);
+}
+.badge--muted {
+  --mdc-chip-elevated-container-color: rgba(122, 139, 160, 0.1);
+  --mdc-chip-label-text-color: var(--text-secondary);
+}

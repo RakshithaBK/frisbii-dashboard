@@ -1,0 +1,21 @@
+<aside class="sidebar">
+  <div class="sidebar__brand">
+    <div class="sidebar__logo">F</div>
+    <div class="sidebar__brand-text">
+      <span class="sidebar__brand-name">Frisbii</span>
+      <span class="sidebar__brand-sub">Dashboard</span>
+    </div>
+  </div>
+
+  <mat-nav-list>
+    <a
+      mat-list-item
+      routerLink="/customers"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: false }"
+    >
+      <mat-icon matListItemIcon>people</mat-icon>
+      <span matListItemTitle>Customers</span>
+    </a>
+  </mat-nav-list>
+</aside>
