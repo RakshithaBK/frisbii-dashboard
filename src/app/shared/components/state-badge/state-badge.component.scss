@@ -3,10 +3,10 @@ mat-chip-set {
 }
 
 mat-chip {
-  font-family: var(--font-mono) !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.03em !important;
+  --mdc-chip-label-text-font: var(--font-mono);
+  --mdc-chip-label-text-size: 11px;
+  --mdc-chip-label-text-weight: 600;
+  --mdc-chip-label-text-tracking: 0.03em;
   text-transform: uppercase;
   cursor: default;
 }

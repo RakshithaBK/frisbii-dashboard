@@ -54,12 +54,12 @@
   }
 }
 
-.active-link {
-  background: var(--accent-primary-dim) !important;
-  color: var(--accent-primary) !important;
+a.active-link.mat-mdc-list-item {
+  background: var(--accent-primary-dim);
+  color: var(--accent-primary);
   border-radius: 8px;
 
-  mat-icon {
-    color: var(--accent-primary) !important;
+  .mat-icon {
+    color: var(--accent-primary);
   }
 }

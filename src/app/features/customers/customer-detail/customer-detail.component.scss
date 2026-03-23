@@ -23,18 +23,18 @@
   margin-bottom: var(--space-8);
 }
 
-.card-content {
+:host .card-content {
   display: flex;
   align-items: flex-start;
   gap: var(--space-6);
-  padding: var(--space-6) !important;
+  padding: var(--space-6);
 }
 
-.card-skeleton {
+:host .card-skeleton {
   display: flex;
   align-items: flex-start;
   gap: var(--space-5);
-  padding: var(--space-6) !important;
+  padding: var(--space-6);
 }
 
 .card-skeleton__lines {
@@ -119,12 +119,12 @@
   width: 100%;
 }
 
-mat-card-title {
-  display: flex !important;
+:host mat-card-title {
+  --mat-card-title-text-font: var(--font-display);
+  --mat-card-title-text-size: 15px;
+  display: flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-display) !important;
-  font-size: 15px !important;
 }
 
 .action-btn {
