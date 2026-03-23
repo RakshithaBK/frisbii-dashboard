@@ -7,7 +7,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatChipsModule } from '@angular/material/chips';
 import { customerDisplayName } from '../../../core/models/customer.model';
 import { SUBSCRIPTION_STATES } from '../../../core/models/subscription.model';
 import {
@@ -32,7 +31,6 @@ import { CustomerDetailEffects } from '../store/customer-detail.effects';
     MatProgressBarModule,
     MatDividerModule,
     MatTooltipModule,
-    MatChipsModule,
     BreadcrumbComponent,
     StateBadgeComponent,
     EmptyStateComponent,

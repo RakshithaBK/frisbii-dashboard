@@ -1,37 +1,12 @@
-mat-chip-set {
-  --mdc-chip-container-height: 24px;
-}
-
-mat-chip {
-  --mdc-chip-label-text-font: var(--font-mono);
-  --mdc-chip-label-text-size: 11px;
-  --mdc-chip-label-text-weight: 600;
-  --mdc-chip-label-text-tracking: 0.03em;
+.state-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  cursor: default;
-}
-
-.badge--success {
-  --mdc-chip-elevated-container-color: var(--accent-success-dim);
-  --mdc-chip-label-text-color: var(--accent-success);
-}
-.badge--error {
-  --mdc-chip-elevated-container-color: var(--accent-error-dim);
-  --mdc-chip-label-text-color: var(--accent-error);
-}
-.badge--warning {
-  --mdc-chip-elevated-container-color: var(--accent-warning-dim);
-  --mdc-chip-label-text-color: var(--accent-warning);
-}
-.badge--info {
-  --mdc-chip-elevated-container-color: var(--accent-info-dim);
-  --mdc-chip-label-text-color: var(--accent-info);
-}
-.badge--purple {
-  --mdc-chip-elevated-container-color: var(--accent-purple-dim);
-  --mdc-chip-label-text-color: var(--accent-purple);
-}
-.badge--muted {
-  --mdc-chip-elevated-container-color: rgba(122, 139, 160, 0.1);
-  --mdc-chip-label-text-color: var(--text-secondary);
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
 }
