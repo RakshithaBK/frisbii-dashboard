@@ -1,4 +1,3 @@
-<span class="badge badge--{{ config().color }}" [title]="state()">
-  <span class="badge__dot"></span>
+<span class="state-badge" [style.color]="config().color" [style.background]="config().background">
   {{ config().label }}
 </span>
